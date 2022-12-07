@@ -1,5 +1,5 @@
 import { usuario } from '../models/usuario.js';
-
+import bcrypt from 'bcrypt'
 // Registrar un usuario en la abse de datos
 export const regusuario = (req, res) => {
     const user = usuario(req.body);
@@ -42,10 +42,10 @@ export const shuserone = (req, res) => {
   //Actualizar un usuario
   export const upuser =  (req, res) => {
     const { id } = req.params;
-    const { nomuser , password, correo } = req.body;
+    var { nomuser , password, correo } = req.body;
 const user = this
-const salt = bcrypt.genSaltSync(12);
-const hash = bcrypt.hashSync(password, salt);
+let salt = bcrypt.genSaltSync(12);
+let hash = bcrypt.hashSync(password, salt);
 password = hash;
     usuario
       .updateOne({ _id: id }, { $set: { nomuser, password, correo } })
